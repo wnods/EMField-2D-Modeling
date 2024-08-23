@@ -1,4 +1,5 @@
 import numpy as np
+import logging
 import cmath
 
 # Constants
@@ -359,6 +360,7 @@ def plota_malha():
         for i in range(nos):
             f.write(" ".join(f"{coordenadas[i, j]:10.3f}" for j in range(2)) + "\n")
 
+
 def main():
     # Step 1: Get data
     get_data()
@@ -388,6 +390,20 @@ def main():
 
     print_result(Fonte)
     print("Results printed successfully.")
+
+    logging.basicConfig(level=logging.INFO)
+    logging.info("Starting the FEM simulation.")
+    fem_model = FiniteElementModel()
+    
+    fem_model.load_data()
+    logging.info("Data loaded successfully.")
+    
+    fem_model.generate_grid()
+    logging.info("Grid generated successfully.")
+
+    logging.info("Simulation completed.")
+
+
 
 if __name__ == "__main__":
     main()
