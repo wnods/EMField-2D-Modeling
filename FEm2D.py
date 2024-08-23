@@ -358,3 +358,37 @@ def plota_malha():
     with open('coordenadas.txt', 'w') as f:
         for i in range(nos):
             f.write(" ".join(f"{coordenadas[i, j]:10.3f}" for j in range(2)) + "\n")
+
+def main():
+    # Step 1: Get data
+    get_data()
+    print("Data loaded successfully.")
+
+    # Step 2: Get model parameters
+    get_model()
+    print("Model parameters loaded successfully.")
+
+    # Step 3: Generate the grid
+    grid_2d()
+    print("Grid generated successfully.")
+
+    # Step 4: Identify heterogeneity
+    hetero_ident()
+    print("Heterogeneity identified successfully.")
+
+    # Step 5: Solve for Hy and Ex
+    Fonte = np.zeros(nos, dtype=complex)
+    Global = np.zeros((sB, nos), dtype=complex)
+    
+    cc_origin(Fonte, Global)
+    print("Source and global matrix initialized.")
+
+    cc(Fonte, Global)
+    print("Boundary conditions applied.")
+
+    print_result(Fonte)
+    print("Results printed successfully.")
+
+if __name__ == "__main__":
+    main()
+
